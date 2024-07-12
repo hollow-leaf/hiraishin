@@ -7,3 +7,8 @@
 [![License: ](https://img.shields.io/github/license/hollow-leaf/hiraishin
 )](./LICENSE)
 </div>
+
+### Probably Bounty
+
+DA Part:
+- Avail
