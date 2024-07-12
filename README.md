@@ -1,4 +1,4 @@
-# Turborepo starter
+# Hiraishin
 
 This is an official starter Turborepo.
 
