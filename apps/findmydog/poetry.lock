@@ -328,6 +328,16 @@ test = ["certifi", "pretend", "pytest (>=6.2.0)", "pytest-benchmark", "pytest-co
 test-randomorder = ["pytest-randomly"]
 
 [[package]]
+name = "csvutils"
+version = "0.1"
+description = "Transformation utilities for csv (or csv-like) generated rows"
+optional = false
+python-versions = "*"
+files = [
+    {file = "csvutils-0.1.zip", hash = "sha256:a5f0f49ac98a65a632bc8490cfe98a077a0d48656930395f39dc504804637f7c"},
+]
+
+[[package]]
 name = "dbus-fast"
 version = "2.22.1"
 description = "A faster version of dbus-next"
@@ -1038,4 +1048,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.13"
-content-hash = "f6f6de320f9dee2e4703c84be3a04f91991229ed4b1f1d24971b469e32605348"
+content-hash = "619596b9f259b01514b180454a270b5f901f8cf6b4a9ba920e6af47cbe8ecddc"

@@ -3,6 +3,7 @@
 # Packages
 /dist/*
 
+__pycache__
 # Unit test / coverage reports
 .coverage
 .pytest_cache

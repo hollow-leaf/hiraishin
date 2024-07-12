@@ -11,6 +11,7 @@ python = ">=3.9,<3.13"
 findmy = "^0.6.1"
 typing-extensions = "^4.12.2"
 bleak = "^0.22.2"
+csvutils = "^0.1"
 
 
 [build-system]
