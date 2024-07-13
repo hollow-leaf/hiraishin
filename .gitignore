@@ -5,6 +5,10 @@ node_modules
 .pnp
 .pnp.js
 
+# PWA
+/public/workbox-* 
+
+
 # Local env files
 .env
 .env.local
