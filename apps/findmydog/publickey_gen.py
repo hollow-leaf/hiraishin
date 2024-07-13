@@ -29,6 +29,22 @@ SKN = device_data["sharedSecret"]["key"]["data"]
 # This doesn't apply in case of MacBook, but is used for AirTags and other accessories.
 SKS = device_data["secureLocationsSharedSecret"]["key"]["data"]
 
+def get_airtag_key():
+    paired_at = device_data["pairingDate"].replace(tzinfo=timezone.utc)
+    airtag = FindMyAccessory(MASTER_KEY, SKN, SKS, paired_at)
+
+    # Generate keys for now
+    now = datetime.now(tz=timezone.utc)
+    lookup_time = paired_at.replace(
+        minute=paired_at.minute // 15 * 15,
+        second=0,
+        microsecond=0,
+    )
+
+    # mycsv = CSVWriter('discovery-keys.csv')
+
+
+    return 
 
 def main() -> None:
     paired_at = device_data["pairingDate"].replace(tzinfo=timezone.utc)

@@ -7,9 +7,10 @@
 [![License: ](https://img.shields.io/github/license/hollow-leaf/hiraishin
 )](./LICENSE)
 </div>
-```
-docker run -d --restart always --name anisette-v3 -p 6969:6969 dadoum/anisette-v3-server
-```
+
+### Problem
+Some user cannot generate gena, but can use v_Data to extract the private key
+
 ### Probably Bounty
 
 DA Part:

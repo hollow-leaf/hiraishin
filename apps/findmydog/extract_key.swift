@@ -115,9 +115,12 @@ guard status != errSecItemNotFound else { throw MyError.noPassword }
 print("item", item)
 guard status == errSecSuccess else { throw MyError.keychainError(status: status) }
 guard let existingItem = item as? [String : Any] else  { throw MyError.invalidItem }
-print("existingItem", existingItem["gena"] as Any)
 
-if let keyData = existingItem["gena"] as? Data {
+// if gena not found, use v_Data, both value are same key to extract the data
+print("existingItem gena", existingItem["gena"] as Any)
+print("existingItem v_Data", existingItem["v_Data"] as Any)
+
+if let keyData = existingItem["gena"] as? Data ?? existingItem["v_Data"] as? Data {
     let key = SymmetricKey(data: keyData)
 
     let basePath = "com.apple.icloud.searchpartyd"

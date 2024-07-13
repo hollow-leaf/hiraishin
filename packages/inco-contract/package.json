@@ -1,0 +1,38 @@
+{
+  "name": "contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "hardhat compile",
+    "deploy:token": "hardhat deploy:token --verify",
+    "deploy:miner": "hardhat deploy:miner --verify",
+    "verify": "hardhat verify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "2.0.2",
+    "@nomicfoundation/hardhat-verify": "^2.0.4",
+    "@nomiclabs/hardhat-ethers": "2.2.3",
+    "@openzeppelin/contracts": "^5.0.1",
+    "@openzeppelin/contracts-upgradeable": "^5.0.2",
+    "@prb/math": "^4.0.2",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@succinctlabs/succinctx": "github:succinctlabs/succinctx",
+    "@types/node": "^20.11.19",
+    "blobstream-contracts": "github:celestiaorg/blobstream-contracts",
+    "dotenv": "16.3.1",
+    "ethers": "^5.0.0",
+    "hardhat": "2.19.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "fhevm": "^0.3.0"
+  }
+}
