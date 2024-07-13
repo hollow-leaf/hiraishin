@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-console */
-
 "use client";
 import Link from "next/link";
 import { CHAIN_NAMESPACES, IProvider, UX_MODE, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from "@web3auth/base";
@@ -8,7 +5,9 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { useEffect, useState } from "react";
+import Web3 from "web3";
 
+// IMP START - Dashboard Registration
 const clientId = "BMKrCReEsPSEDFNdtN3yAy44aYxmVBdrwUSioA8Gslovqs3kkdw0b_0P5H2mlsDMZlgj85WS6pAfHL60Citlicc"; // get from https://dashboard.web3auth.io
 
 const chainConfig = {
@@ -26,7 +25,7 @@ const privateKeyProvider = new EthereumPrivateKeyProvider({ config: { chainConfi
 
 const web3auth = new Web3AuthNoModal({
   clientId,
-  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
+  web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
   privateKeyProvider,
 });
 
@@ -62,7 +61,82 @@ function App() {
     if (web3auth.connected) {
       setLoggedIn(true);
     }
+    const web3 = new Web3(provider as any);
+    // Get user's Ethereum public address
+    const address = await web3.eth.getAccounts();
+    uiConsole(address);
   };
+
+  // const getUserInfo = async () => {
+  //   const user = await web3auth.getUserInfo();
+  //   uiConsole(user);
+  // };
+
+  // const logout = async () => {
+  //   await web3auth.logout();
+  //   setProvider(null);
+  //   setLoggedIn(false);
+  //   uiConsole("logged out");
+  // };
+
+  // const getAccounts = async () => {
+  //   if (!provider) {
+  //     uiConsole("provider not initialized yet");
+  //     return;
+  //   }
+  //   const web3 = new Web3(provider as any);
+
+  //   // Get user's Ethereum public address
+  //   const address = await web3.eth.getAccounts();
+  //   uiConsole(address);
+  // };
+
+  // const getBalance = async () => {
+  //   if (!provider) {
+  //     uiConsole("provider not initialized yet");
+  //     return;
+  //   }
+  //   const web3 = new Web3(provider as any);
+
+  //   // Get user's Ethereum public address
+  //   const address = (await web3.eth.getAccounts())[0];
+
+  //   // Get user's balance in ether
+  //   const balance = web3.utils.fromWei(
+  //     await web3.eth.getBalance(address), // Balance is in wei
+  //     "ether"
+  //   );
+  //   uiConsole(balance);
+  // };
+
+  // const signMessage = async () => {
+  //   if (!provider) {
+  //     uiConsole("provider not initialized yet");
+  //     return;
+  //   }
+  //   const web3 = new Web3(provider as any);
+
+  //   // Get user's Ethereum public address
+  //   const fromAddress = (await web3.eth.getAccounts())[0];
+
+  //   const originalMessage = "YOUR_MESSAGE";
+
+  //   // Sign the message
+  //   const signedMessage = await web3.eth.personal.sign(
+  //     originalMessage,
+  //     fromAddress,
+  //     "test password!" // configure your own password here.
+  //   );
+  //   uiConsole(signedMessage);
+  // };
+
+  function uiConsole(...args: any[]): void {
+    const el = document.querySelector("#console>p");
+    if (el) {
+      el.innerHTML = JSON.stringify(args || {}, null, 2);
+      console.log(...args);
+    }
+  }
 
   const loggedInView = (
     <Link href="/profile">
@@ -73,10 +147,9 @@ function App() {
   );
 
   const unloggedInView = (
-    <button onClick={login} className="p-3 text-white mt-10 bg-yellow-500 rounded-xl">
-      Sign in
+    <button onClick={login} className="card">
+      Login
     </button>
-    
   );
 
   return (

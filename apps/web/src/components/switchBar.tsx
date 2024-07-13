@@ -58,7 +58,7 @@ function SwitchBar() {
               >
                 <ProfileIcon />
               </IconButton>
-              <span className={path == "profile" ? "text-black font-bold":"text-gray-500"}>Videos</span>
+              <span className={path == "profile" ? "text-black font-bold":"text-gray-500"}>Profile</span>
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center">

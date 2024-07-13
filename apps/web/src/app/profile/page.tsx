@@ -74,7 +74,7 @@ export default function Page() {
       <NavBar />
       <Carousel missedDog={dogInfo}/>
       <TokenBar amount={100} />
-      <DogBar dogInfo={myDogInfo} />
+      <DogBar dogs={myDogInfo} />
       <SwitchBar />
     </div>
   );

@@ -10,7 +10,7 @@ interface DogProps {
     breed: string;
     dogName: string;
     img: string;
-  };
+  }[];
 }
 
 const TabPage: React.FC<DogProps> = ({ dogs }) => {
@@ -42,24 +42,24 @@ const TabPage: React.FC<DogProps> = ({ dogs }) => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="w-80 h-100 rounded-md overflow-hidden relative p-4">
-        <div className="w-full flex items-start">
-          <Typography variant="h6" className="mb-2">
-            My Profile
-          </Typography>
+      <div className="w-80 rounded-md overflow-hidden relative p-2">
+        <div className="w-full flex items-start mb-4">
+          <Typography variant="h6">My Profile</Typography>
         </div>
         <Tabs value={value} onChange={handleChange} aria-label="profile tabs">
           <Tab label="Dog Profile" />
-          <Tab label="Scan Profile" />
-          <Tab label="Find Profile" />
+          <Tab label="Scan" />
+          <Tab label="Find" />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <div className="flex flex-col items-center">
-            <Image src={dogs.img} alt={`${dogs.dogName}`} width={100} height={100} className="rounded-full" />
-            <Typography variant="h6" className="mt-2">{dogs.dogName}</Typography>
-            <Typography variant="body1">Breed: {dogs.breed}</Typography>
-            <Typography variant="body1">Chip ID: {dogs.chipId}</Typography>
-          </div>
+          {dogs.map((dog) => (
+            <div key={dog.chipId} className="flex flex-col items-center mb-4">
+              <Image src={dog.img} alt={dog.dogName} width={100} height={100} className="rounded-full" />
+              <Typography variant="h6" className="mt-2">{dog.dogName}</Typography>
+              <Typography variant="body1">Breed: {dog.breed}</Typography>
+              <Typography variant="body1">Chip ID: {dog.chipId}</Typography>
+            </div>
+          ))}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Typography>Scan Profile content goes here.</Typography>

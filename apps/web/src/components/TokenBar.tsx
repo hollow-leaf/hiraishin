@@ -26,7 +26,7 @@ const TokenBar: React.FC<PriceProps> = ({ amount }) => {
                 height={30}
                 className="rounded-full"
                 />
-            <Typography variant="body1" className="ml-2 font-semibold">
+            <Typography variant="body1" className="font-semibold gap-2">
               Paw Point:
             </Typography>
           </div>
