@@ -5,20 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 
 function SwitchBar() {
-  const settings = ["Account", "Profile", "Settings"];
   const pathname = usePathname();
-  const firstPath = pathname.split("/")[1];
-  const showNavbar = pathname !== "/";
+  const path = pathname.split("/")[1];
   const ProfileIcon = () => (
     <svg
       width="30"
@@ -49,19 +43,6 @@ function SwitchBar() {
     </svg>
   );
 
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  if (!showNavbar) {
-    return null;
-  }
-
   return (
     <div className="fixed left-0 bottom-0 z-10 flex w-full justify-center">
       <AppBar position="static">
@@ -88,7 +69,7 @@ function SwitchBar() {
               >
                 <FourCircle />
               </IconButton>
-              <span className="text-black">Videos</span>
+              <span className={path == "/map" ? "text-gray-500":"text-black"}>Videos</span>
             </Box>
             <Box display="flex" flexDirection="column" alignItems="center" overflow="hidden">
               <Image
@@ -97,7 +78,7 @@ function SwitchBar() {
                 width={60}
                 height={60}
               />
-              <span className="text-black font-bold">Hiraishin</span>
+              <span className={path == "/map" ? "text-gray-500":"text-black"}>Hiraishin</span>
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center">
@@ -107,7 +88,7 @@ function SwitchBar() {
                 width={40}
                 height={40}
               />
-              <span className="text-black">Videos</span>
+              <span className={path == "/map" ? "text-gray-500":"text-black"}>Videos</span>
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center" >
@@ -117,38 +98,7 @@ function SwitchBar() {
                 width={40}
                 height={40}
               />
-              <span className="text-black">Videos</span>
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <Link
-                    key={setting}
-                    href={`/${setting.toLowerCase()}`} // Create a lowercase version of the page name for the URL path
-                    color="inherit" // Ensure it inherits the correct color
-                  >
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-              </Menu>
+              <span className={path == "/map" ? "text-gray-500":"text-black"}>Videos</span>
             </Box>
           </Toolbar>
         </Container>
