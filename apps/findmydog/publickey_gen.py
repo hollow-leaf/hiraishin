@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 # from csvutils import CSVWriter
 from findmy.keys import KeyType
-
+import requests
 from findmy import FindMyAccessory
 
 # Path to a .plist dumped from the Find My app.
@@ -61,15 +61,17 @@ def main() -> None:
     ) + timedelta(minutes=15)
 
     # mycsv = CSVWriter('discovery-keys.csv')
-
+    # 2 days public key
+    pubkey_string = ""
     while lookup_time < now:
         keys = airtag.keys_at(lookup_time)
         for key in keys:
             if key.key_type == KeyType.PRIMARY:
                 print(f"Primary key at {lookup_time}: {key.adv_key_b64} {key.private_key_b64} {key.key_type} {key.hashed_adv_key_b64}")
-                # mycsv.write(lookup_time, key.adv_key_b64, key.private_key_b64, key.key_type, key.hashed_adv_key_b64)
-
+                pubkey_string = f"{lookup_time} {pubkey_string} {key.adv_key_b64}"
+        
         lookup_time += timedelta(minutes=15)
-
+    print(pubkey_string)
+    x = requests.post("http://localhost:8080/add_data", json={"key": pubkey_string})
 if __name__ == "__main__":
     main()
