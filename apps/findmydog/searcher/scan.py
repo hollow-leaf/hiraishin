@@ -5,6 +5,18 @@ from findmy.scanner import OfflineFindingScanner
 
 logging.basicConfig(level=logging.INFO)
 
+async def scanonce():
+    scanner = await OfflineFindingScanner.create()
+    json_data = {}
+    async for device in scanner.scan_for(5, extend_timeout=True):
+        json_data[device.mac_address] = {
+            "public_key": device.adv_key_b64,
+            "lookup_key": device.hashed_adv_key_b64,
+            "status": device.status,
+            "hint": device.hint,
+            "additional_data": device.additional_data,
+        }
+    return json_data
 
 async def scan() -> None:
     scanner = await OfflineFindingScanner.create()

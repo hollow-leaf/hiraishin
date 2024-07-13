@@ -4,6 +4,7 @@
   "description": "Shows a basic usage of the Avail polkadot js wrapper",
   "scripts": {
     "clean": "rimraf build",
+    "start": "ts-node src/app.ts",
     "build": "npm run clean && tsc",
     "connect": "npm run build && node build/node-examples/src/connect.js",
     "transfer": "npm run build && node build/node-examples/src/tx-balance-transfer.js",
@@ -26,9 +27,13 @@
   },
   "dependencies": {
     "@polkadot/types": "^12.1.1",
-    "avail-js-sdk": "^0.2.12"
+    "@types/express": "^4.17.21",
+    "avail-js-sdk": "^0.2.12",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.1"
   },

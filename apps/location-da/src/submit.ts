@@ -10,7 +10,36 @@ import { H256 } from "@polkadot/types/interfaces/runtime"
 
 import config from "../config"
 
-const main = async () => {
+export const extract = async (blockHash:string, txHash: any) => {
+  // Extracting the data from the command line arguments
+  try {
+    const api = await initialize(config.endpoint)
+    const account = getKeyringFromSeed(config.seed)
+    const appId = config.appId === 0 ? 1 : config.appId
+    const options = { app_id: appId, nonce: -1 }
+
+    const block = await api.rpc.chain.getBlock(blockHash)
+    const tx = block.block.extrinsics.find((tx) => tx.hash.toHex() == txHash.toHex())
+    if (tx == undefined) {
+      console.log("Failed to find the Submit Data transaction")
+      process.exit(1)
+    }
+
+    const dataHex = tx.method.args.map((a) => a.toString()).join(", ")
+    // Data retrieved from the extrinsic data
+    let str = ""
+    for (let n = 0; n < dataHex.length; n += 2) {
+      str += String.fromCharCode(parseInt(dataHex.substring(n, n + 2), 16))
+    }
+    console.log(`submitted data: ${str}`)
+
+    process.exit(0)
+  } catch (err) {
+    console.error(err)
+    process.exit(1)
+  }
+}
+export const submit = async (data: string) => {
   try {
     const api = await initialize(config.endpoint)
     const account = getKeyringFromSeed(config.seed)
@@ -19,7 +48,6 @@ const main = async () => {
 
     // Transaction call
     // Change "Hello World" to something that has meaning to you
-    const data = "Hello World"
     const txResult = await new Promise<ISubmittableResult>((res) => {
       api.tx.dataAvailability.submitData(data).signAndSend(account, options, (result: any) => {
         console.log(`Tx status: ${result.status}`)
@@ -61,7 +89,7 @@ const main = async () => {
 
     const dataHex = tx.method.args.map((a) => a.toString()).join(", ")
     // Data retrieved from the extrinsic data
-    let str = "123x"
+    let str = ""
     for (let n = 0; n < dataHex.length; n += 2) {
       str += String.fromCharCode(parseInt(dataHex.substring(n, n + 2), 16))
     }
@@ -73,4 +101,3 @@ const main = async () => {
     process.exit(1)
   }
 }
-main()
