@@ -27,7 +27,9 @@ SKN = device_data["sharedSecret"]["key"]["data"]
 
 # "Secondary" shared secret. 32 bytes.
 # This doesn't apply in case of MacBook, but is used for AirTags and other accessories.
-SKS = device_data["secureLocationsSharedSecret"]["key"]["data"]
+# If you're using a Macbook, you need to use secureLocationsSharedSecret instead.
+# SKS = device_data["secureLocationsSharedSecret"]["key"]["data"]
+SKS = device_data["sharedSecret"]["key"]["data"]
 
 def get_airtag_key():
     paired_at = device_data["pairingDate"].replace(tzinfo=timezone.utc)
