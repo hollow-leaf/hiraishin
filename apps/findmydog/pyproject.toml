@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "findmydog"
+version = "0.0.1"
+description = "a tool can use findMy package to get all public airtag or devices"
+authors = ["kidneyweakx <kidneyweakx@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+findmy = "^0.6.1"
+typing-extensions = "^4.12.2"
+bleak = "^0.22.2"
+csvutils = "^0.1"
+requests = "^2.32.3"
+fastapi = "^0.111.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
