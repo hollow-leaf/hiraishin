@@ -37,7 +37,7 @@ const Dogs: React.FC<DogListProps> = ({ missedDog }) => {
         <ImageList variant="masonry" cols={1} gap={40}>
           {missedDog.map((item) => {
             return (
-              <ImageListItem>
+              <ImageListItem key={item.id}>
                 <div className="group rounded-3xl overflow-hidden relative">
                   <div
                     style={{ width: 300, height: 160, position: "relative" }}
