@@ -7,8 +7,10 @@
 [![License: ](https://img.shields.io/github/license/hollow-leaf/hiraishin
 )](./LICENSE)
 </div>
+
 ### Problem
-Some user cannot generate gena
+Some user cannot generate gena, but can use v_Data to extract the private key
+
 ### Probably Bounty
 
 DA Part:
