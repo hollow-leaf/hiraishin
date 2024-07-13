@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import LoginButton from "@/components/LoginButton";
 
 export default function Home() {
   return (
@@ -21,11 +22,7 @@ export default function Home() {
             Paws for points <br />
             Bringing Your Furry Friend Home
           </p>
-          <Link href="/main">
-            <button className="w-full p-3 text-white mt-10 bg-yellow-500 rounded-xl">
-              Get Started
-            </button>
-          </Link>
+          <LoginButton />
         </div>
       </div>
     </main>
