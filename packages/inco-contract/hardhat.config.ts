@@ -108,8 +108,17 @@ const config: HardhatUserConfig = {
       mainnet: process.env.ETHERSCAN_API_KEY || "",
       cardona: process.env.POLYGONSCAN_API_KEY || "",
       baseSepolia: process.env.BASESCAN_API_KEY || "",
+      inco: "NO_API_KEY",
     },
     customChains: [
+      {
+			  network: "inco",
+			  chainId: 9090,
+			  urls: {
+			   apiURL: "https://explorer.testnet.inco.org/api/",
+			   browserURL: "https://explorer.testnet.inco.org/"
+			  }
+			},
     ]
   },
 
