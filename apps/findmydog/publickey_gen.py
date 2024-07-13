@@ -42,7 +42,7 @@ def get_airtag_key():
     )
 
     # mycsv = CSVWriter('discovery-keys.csv')
-    
+
 
     return 
 
