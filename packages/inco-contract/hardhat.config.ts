@@ -21,7 +21,8 @@ const chainIds = {
   goerli: 5,
   sepolia: 11155111,
   hardhat: 31337,
-  mainnet: 1
+  mainnet: 1,
+  inco: 9090,
 }
 
 // Ensure that we have all the environment variables we need.
@@ -38,6 +39,9 @@ if (!infuraApiKey) {
 function getChainConfig (chain: keyof typeof chainIds): NetworkUserConfig {
   let jsonRpcUrl: string
   switch (chain) {
+    case "inco":
+      jsonRpcUrl = "https://testnet.inco.org";
+      break;
     case "sepolia":
       jsonRpcUrl = "https://rpc.sepolia.org"
       break
@@ -61,6 +65,7 @@ const config: HardhatUserConfig = {
       url: "http://127.0.0.1:8545",
     },
     goerli: getChainConfig("goerli"),
+    inco: getChainConfig("inco"),
     sepolia: getChainConfig("sepolia"),
     mainnet: getChainConfig("mainnet"),
   },
@@ -89,7 +94,7 @@ const config: HardhatUserConfig = {
       // https://hardhat.org/hardhat-network/#solidity-optimizer-support
       optimizer: {
         enabled: true,
-        runs: 200,
+        runs: 800,
         details: {
           yulDetails: false,
         },
