@@ -7,6 +7,7 @@
 //
 //  Created by Matus on 28/01/2024. - https://gist.github.com/YeapGuy/f473de53c2a4e8978bc63217359ca1e4
 //  Modified by Airy
+//  Modified by Kidney @ 13/07/2024
 //
 import Cocoa
 import Foundation

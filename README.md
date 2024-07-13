@@ -7,7 +7,9 @@
 [![License: ](https://img.shields.io/github/license/hollow-leaf/hiraishin
 )](./LICENSE)
 </div>
-
+```
+docker run -d --restart always --name anisette-v3 -p 6969:6969 dadoum/anisette-v3-server
+```
 ### Probably Bounty
 
 DA Part:

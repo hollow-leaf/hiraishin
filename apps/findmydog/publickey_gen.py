@@ -48,7 +48,8 @@ def main() -> None:
         keys = airtag.keys_at(lookup_time)
         for key in keys:
             if key.key_type == KeyType.PRIMARY:
-                mycsv.write(lookup_time, key.adv_key_b64, key.private_key_b64, key.key_type, key.hashed_adv_key_b64)
+                print(f"Primary key at {lookup_time}: {key.adv_key_b64} {key.private_key_b64} {key.key_type} {key.hashed_adv_key_b64}")
+                # mycsv.write(lookup_time, key.adv_key_b64, key.private_key_b64, key.key_type, key.hashed_adv_key_b64)
 
         lookup_time += timedelta(minutes=15)
 
