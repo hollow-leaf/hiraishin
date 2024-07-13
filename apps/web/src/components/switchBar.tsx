@@ -13,6 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 function SwitchBar() {
   const pathname = usePathname();
   const path = pathname.split("/")[1];
+  console.log(path);
   const ProfileIcon = () => (
     <svg
       width="30"
@@ -57,7 +58,7 @@ function SwitchBar() {
               >
                 <ProfileIcon />
               </IconButton>
-              <span className="text-black">Profile</span>
+              <span className={path == "profile" ? "text-black font-bold":"text-gray-500"}>Videos</span>
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center">
@@ -69,16 +70,18 @@ function SwitchBar() {
               >
                 <FourCircle />
               </IconButton>
-              <span className={path == "/map" ? "text-gray-500":"text-black"}>Videos</span>
+              <span className={path == "video" ? "text-black font-bold":"text-gray-500"}>Videos</span>
             </Box>
-            <Box display="flex" flexDirection="column" alignItems="center" overflow="hidden">
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Link href="/map">
               <Image
                 src="/map.png"
                 alt="map"
                 width={60}
                 height={60}
               />
-              <span className={path == "/map" ? "text-gray-500":"text-black"}>Hiraishin</span>
+              <span className={path == "map" ? "text-black font-bold":"text-gray-500"}>Hiraishin</span>
+              </Link>
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center">
@@ -88,17 +91,17 @@ function SwitchBar() {
                 width={40}
                 height={40}
               />
-              <span className={path == "/map" ? "text-gray-500":"text-black"}>Videos</span>
+              <span className={path == "video" ? "text-black font-bold":"text-gray-500"}>Videos</span>
             </Box>
 
-            <Box display="flex" flexDirection="column" alignItems="center" >
+            <Box display="flex" flexDirection="column" alignItems="center">
               <Image
                 src="/hiraishin.png"
                 alt="Hiraishin"
                 width={40}
                 height={40}
               />
-              <span className={path == "/map" ? "text-gray-500":"text-black"}>Videos</span>
+              <span className={path == "video" ? "text-black font-bold":"text-gray-500"}>Videos</span>
             </Box>
           </Toolbar>
         </Container>
