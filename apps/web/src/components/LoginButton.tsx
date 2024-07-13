@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS, UX_MODE, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
@@ -29,8 +29,22 @@ const web3auth = new Web3AuthNoModal({
   privateKeyProvider,
 });
 
-const openloginAdapter = new OpenloginAdapter();
-web3auth.configureAdapter(openloginAdapter);
+// const openloginAdapter = new OpenloginAdapter();
+// web3auth.configureAdapter(openloginAdapter);
+// Add openlogin adapter for customisations
+const openloginAdapterInstance = new OpenloginAdapter({
+  adapterSettings: {
+    uxMode: UX_MODE.REDIRECT,
+    whiteLabel: {
+      appName: "Hiraishin",
+      logoLight: "/hiraishin.png",
+      logoDark: "/hiraishin.png",
+      defaultLanguage: "en",
+      mode: "light", // whether to enable dark mode. defaultValue: false
+    },
+  },
+});
+web3auth.configureAdapter(openloginAdapterInstance);
 
 function App() {
   const [provider, setProvider] = useState<IProvider | null>(null);

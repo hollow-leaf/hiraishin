@@ -16,8 +16,8 @@ function SwitchBar() {
   console.log(path);
   const ProfileIcon = () => (
     <svg
-      width="30"
-      height="30"
+      width="20"
+      height="20"
       viewBox="0 0 30 30"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -62,15 +62,15 @@ function SwitchBar() {
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center">
-              <IconButton
-                color="inherit"
-                aria-label="videos"
-                component={Link}
-                href="/videos"
-              >
-                <FourCircle />
-              </IconButton>
-              <span className={path == "video" ? "text-black font-bold":"text-gray-500"}>Videos</span>
+              <Link href="/dogs">
+            <Image
+                src="/dog.png"
+                alt="Hiraishin"
+                width={40}
+                height={40}
+              />
+              <span className={path == "dogs" ? "text-black font-bold":"text-gray-500"}>Dogs</span>
+              </Link>
             </Box>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Link href="/map">
@@ -91,7 +91,7 @@ function SwitchBar() {
                 width={40}
                 height={40}
               />
-              <span className={path == "video" ? "text-black font-bold":"text-gray-500"}>Videos</span>
+              <span className={path == "scan" ? "text-black font-bold":"text-gray-500"}>Scan</span>
             </Box>
 
             <Box display="flex" flexDirection="column" alignItems="center">
@@ -101,7 +101,7 @@ function SwitchBar() {
                 width={40}
                 height={40}
               />
-              <span className={path == "video" ? "text-black font-bold":"text-gray-500"}>Videos</span>
+              <span className={path == "find" ? "text-black font-bold":"text-gray-500"}>Find</span>
             </Box>
           </Toolbar>
         </Container>
