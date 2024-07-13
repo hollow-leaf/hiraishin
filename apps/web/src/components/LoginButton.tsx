@@ -1,22 +1,22 @@
 "use client";
 import Link from "next/link";
-import { CHAIN_NAMESPACES, IProvider, UX_MODE, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from "@web3auth/base";
+import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from "@web3auth/base";
 import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3AuthNoModal } from "@web3auth/no-modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 
-// IMP START - Dashboard Registration
+// Web3Auth configuration
 const clientId = "BMKrCReEsPSEDFNdtN3yAy44aYxmVBdrwUSioA8Gslovqs3kkdw0b_0P5H2mlsDMZlgj85WS6pAfHL60Citlicc"; // get from https://dashboard.web3auth.io
 
 const chainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  chainId: "0x1", // Please use 0x1 for Mainnet
-  rpcTarget: "https://rpc.ankr.com/eth",
-  displayName: "Ethereum Mainnet",
-  blockExplorerUrl: "https://etherscan.io/",
-  ticker: "ETH",
+  chainId: "0x2382", // Inco Gentry Testnet chain ID
+  rpcTarget: "https://testnet.inco.org",
+  displayName: "Inco Gentry Testnet",
+  blockExplorerUrl: "https://explorer.testnet.inco.org/",
+  ticker: "INCO",
   tickerName: "Ethereum",
   logo: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
 };
@@ -34,7 +34,7 @@ web3auth.configureAdapter(openloginAdapter);
 
 function App() {
   const [provider, setProvider] = useState<IProvider | null>(null);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState<any | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -43,7 +43,8 @@ function App() {
         setProvider(web3auth.provider);
 
         if (web3auth.connected) {
-          setLoggedIn(true);
+          const user = await web3auth.getUserInfo();
+          setUserInfo(user);
         }
       } catch (error) {
         console.error(error);
@@ -53,83 +54,27 @@ function App() {
     init();
   }, []);
 
-  const login = async () => {
-    const web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
-      loginProvider: "google",
-    });
-    setProvider(web3authProvider);
-    if (web3auth.connected) {
-      setLoggedIn(true);
-    }
-    const web3 = new Web3(provider as any);
-    // Get user's Ethereum public address
-    const address = await web3.eth.getAccounts();
-    uiConsole(address);
+  const logout = async () => {
+    await web3auth.logout();
+    setProvider(null);
+    uiConsole("logged out");
   };
 
-  // const getUserInfo = async () => {
-  //   const user = await web3auth.getUserInfo();
-  //   uiConsole(user);
-  // };
-
-  // const logout = async () => {
-  //   await web3auth.logout();
-  //   setProvider(null);
-  //   setLoggedIn(false);
-  //   uiConsole("logged out");
-  // };
-
-  // const getAccounts = async () => {
-  //   if (!provider) {
-  //     uiConsole("provider not initialized yet");
-  //     return;
-  //   }
-  //   const web3 = new Web3(provider as any);
-
-  //   // Get user's Ethereum public address
-  //   const address = await web3.eth.getAccounts();
-  //   uiConsole(address);
-  // };
-
-  // const getBalance = async () => {
-  //   if (!provider) {
-  //     uiConsole("provider not initialized yet");
-  //     return;
-  //   }
-  //   const web3 = new Web3(provider as any);
-
-  //   // Get user's Ethereum public address
-  //   const address = (await web3.eth.getAccounts())[0];
-
-  //   // Get user's balance in ether
-  //   const balance = web3.utils.fromWei(
-  //     await web3.eth.getBalance(address), // Balance is in wei
-  //     "ether"
-  //   );
-  //   uiConsole(balance);
-  // };
-
-  // const signMessage = async () => {
-  //   if (!provider) {
-  //     uiConsole("provider not initialized yet");
-  //     return;
-  //   }
-  //   const web3 = new Web3(provider as any);
-
-  //   // Get user's Ethereum public address
-  //   const fromAddress = (await web3.eth.getAccounts())[0];
-
-  //   const originalMessage = "YOUR_MESSAGE";
-
-  //   // Sign the message
-  //   const signedMessage = await web3.eth.personal.sign(
-  //     originalMessage,
-  //     fromAddress,
-  //     "test password!" // configure your own password here.
-  //   );
-  //   uiConsole(signedMessage);
-  // };
-
+  const login = async () => {
+    console.log("login");
+    try {
+      const web3authProvider = await web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
+        loginProvider: "google",
+      });
+      setProvider(web3authProvider);
+      if (web3auth.connected) {
+        const user = await web3auth.getUserInfo();
+        setUserInfo(user);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   function uiConsole(...args: any[]): void {
     const el = document.querySelector("#console>p");
     if (el) {
@@ -139,25 +84,26 @@ function App() {
   }
 
   const loggedInView = (
-    <Link href="/profile">
-      <button className="p-3 text-white mt-10 bg-yellow-500 rounded-xl">
-        Get Started
-      </button>
-    </Link>
+      <Link href="/profile">
+        <button className="p-3 text-white mt-10 bg-yellow-500 rounded-xl">
+          Get Started
+        </button>
+      </Link>
   );
 
   const unloggedInView = (
-    <button onClick={login} className="card">
+    <button onClick={login} className="p-3 text-white mt-10 bg-yellow-500 rounded-xl">
       Login
     </button>
   );
 
   return (
     <div>
-      <div className="flex text-center justify-center ">{loggedIn ? loggedInView : unloggedInView}</div>
+      <div className="flex text-center justify-center">
+        {userInfo ? loggedInView : unloggedInView}
+      </div>
     </div>
   );
-
 }
 
 export default App;
